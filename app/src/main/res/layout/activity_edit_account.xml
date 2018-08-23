@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="android.develop.ct7liang.accounts.activity.EditAccountActivity">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+        <!--<include layout="@layout/title_bar"/>-->
+        <!---->
+    <!--</LinearLayout>-->
+
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@mipmap/default_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <EditText
+            android:hint="标签"
+            android:textColorHint="#FFFFFF"
+            android:id="@+id/tag"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toumingColor"/>
+        <EditText
+            android:hint="账号"
+            android:textColorHint="#FFFFFF"
+            android:id="@+id/account"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toumingColor"/>
+        <EditText
+            android:hint="密码"
+            android:textColorHint="#FFFFFF"
+            android:id="@+id/password"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toumingColor"/>
+        <EditText
+            android:hint="备注"
+            android:textColorHint="#FFFFFF"
+            android:id="@+id/remark"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toumingColor"/>
+        <TextView
+            android:textSize="10sp"
+            android:textColor="#FFFFFF"
+            android:text="除备注外,其它为必填项"
+            android:padding="5dp"
+            android:gravity="end|center_vertical"
+            android:background="@color/toumingColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!--<TextView-->
+            <!--android:id="@+id/confirm"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:text="确认修改"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:textSize="14sp"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="15dp"-->
+            <!--android:background="@color/toumingColor"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+    </LinearLayout>
+
+    <include layout="@layout/title_bar_center"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/snack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

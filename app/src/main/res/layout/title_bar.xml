@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- APP通用标题栏 -->
+<RelativeLayout
+    android:id="@+id/title_bar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/toptitlecolor">
+
+    <!--android:background="@color/toptitlecolor"-->
+
+    <RelativeLayout
+        android:id="@+id/left"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="match_parent">
+        <ImageView
+            android:padding="18dp"
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/title_back"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ImageView
+            android:visibility="gone"
+            android:padding="18dp"
+            android:id="@+id/image_right"
+            android:src="@mipmap/more"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize" />
+        <TextView
+            android:layout_marginLeft="3dp"
+            android:id="@+id/title_right"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="#FFFFFF"/>
+</RelativeLayout>

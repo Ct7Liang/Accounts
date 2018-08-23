@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="android.develop.ct7liang.accounts.activity.EntryActivity">
+
+    <ImageView
+        android:id="@+id/bg_image"
+        android:layout_marginLeft="-200dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/login_default_01"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <include layout="@layout/title_bar_center"/>
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:id="@+id/user_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/logo"/>
+        <LinearLayout
+            android:id="@+id/et"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:orientation="horizontal"
+            android:background="@drawable/edit_text_bg"
+            android:paddingLeft="7dp">
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="10dp"
+                android:src="@mipmap/pass_word"/>
+            <EditText
+                android:textCursorDrawable="@drawable/edit_text_cursor_shape_01"
+                android:textColor="#FFFFFF"
+                android:layout_marginRight="20dp"
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:hint="请输入密码"
+                android:textSize="14sp"
+                android:textColorHint="#FFFFFF"
+                android:inputType="textPassword"
+                android:background="@null"/>
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/login"
+            android:text="登录"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:background="@drawable/login_btn_bg">
+        </TextView>
+    </LinearLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/snack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

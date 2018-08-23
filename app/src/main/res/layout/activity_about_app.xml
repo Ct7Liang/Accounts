@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#adadad"
+    tools:context="android.develop.ct7liang.accounts.activity.AboutAppActivity">
+
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@mipmap/default_about"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<LinearLayout-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:paddingTop="8dp"-->
+        <!--android:paddingBottom="8dp"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:background="@drawable/account_edit_bg">-->
+        <!--<TextView-->
+            <!--android:gravity="center"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:text=""/>-->
+        <!--<TextView-->
+            <!--android:gravity="center"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:text=""/>-->
+        <!--<TextView-->
+            <!--android:gravity="center"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:text=""/>-->
+        <!--<TextView-->
+            <!--android:gravity="center"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:text=""/>-->
+        <!--<TextView-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:text=""/>-->
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_bar_left"/>
+
+        <TextView
+            android:paddingTop="12dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="        该应用数据完全存储在用户的手机本地,清除应用数据或卸载应用等操作均会导致该应用的数据丢失,如需进行这些操作,请首先对数据进行备份和本地的保存"/>
+
+        <RadioGroup
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+            <RadioButton
+                android:id="@+id/menu_a"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="使用菜单A"
+                android:textColor="#FFFFFF"/>
+            <RadioButton
+                android:layout_marginLeft="12dp"
+                android:id="@+id/menu_b"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="使用菜单B"
+                android:textColor="#FFFFFF"/>
+        </RadioGroup>
+
+    </LinearLayout>
+
+</RelativeLayout>

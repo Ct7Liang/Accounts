@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#F1F1F1"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="删除账号"
+        android:textSize="16sp"
+        android:textColor="#3C4350"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@color/grayColor"/>
+
+    <TextView
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingLeft="15dp"
+        android:text="确定要删除这条账号信息?"
+        android:textColor="#3C4350"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <TextView
+            android:gravity="center"
+            android:id="@+id/confirm"
+            android:text="确定"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/confirm_bg"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:id="@+id/cancel"
+            android:text="取消"
+            android:textColor="#3C4350"
+            android:textSize="13sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/cancel_bg"/>
+    </LinearLayout>
+
+</LinearLayout>

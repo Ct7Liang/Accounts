@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F1F1F1"
+    android:paddingBottom="5dp"
+    android:gravity="center_horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/close"
+            android:padding="12dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/close"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="数据来源设备查询密码校验"
+            android:textSize="14sp"
+            android:textColor="#3C4350"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grayColor"/>
+
+    <com.andrognito.patternlockview.PatternLockView
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/pattern_lock_view"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        app:normalStateColor="@color/snackcolor"
+        app:correctStateColor="@color/snackcolor"
+        app:wrongStateColor="@color/pomegranate"/>
+
+</LinearLayout>

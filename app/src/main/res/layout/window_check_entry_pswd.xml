@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F1F1F1"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="登陆密码校验"
+        android:textSize="16sp"
+        android:textColor="#3C4350"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@color/grayColor"/>
+
+    <EditText
+        android:paddingLeft="15dp"
+        android:id="@+id/entry_password"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textSize="14sp"
+        android:inputType="textPassword"
+        android:hint="请输入备份数据来源设备登录密码"
+        android:textColor="#3C4350"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <TextView
+            android:gravity="center"
+            android:id="@+id/cancel"
+            android:text="取消"
+            android:textColor="#3C4350"
+            android:textSize="13sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/cancel_bg"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:id="@+id/confirm"
+            android:text="确定"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/confirm_bg"/>
+    </LinearLayout>
+
+</LinearLayout>

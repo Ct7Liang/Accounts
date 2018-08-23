@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="android.develop.ct7liang.accounts.activity.EditEntryPwActivity">
+
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@mipmap/default_password"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<include layout="@layout/title_bar_center"/>-->
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <LinearLayout
+            android:paddingLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/account_edit_bg"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/pass_word"
+                android:padding="16dp"/>
+            <EditText
+                android:textColor="#FFFFFF"
+                android:layout_marginRight="15dp"
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="请输入原密码"
+                android:textSize="14sp"
+                android:textColorHint="#FFFFFF"
+                android:inputType="textPassword"
+                android:background="@null"/>
+        </LinearLayout>
+        <LinearLayout
+            android:paddingLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/account_edit_bg"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/pass_word_01"
+                android:padding="13dp"/>
+            <EditText
+                android:textColor="#FFFFFF"
+                android:layout_marginRight="15dp"
+                android:id="@+id/password_new"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="请输入新密码"
+                android:textSize="14sp"
+                android:textColorHint="#FFFFFF"
+                android:inputType="textPassword"
+                android:background="@null"/>
+        </LinearLayout>
+        <LinearLayout
+            android:paddingLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/account_edit_bg"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/pass_word_01"
+                android:padding="13dp"/>
+            <EditText
+                android:textColor="#FFFFFF"
+                android:layout_marginRight="15dp"
+                android:id="@+id/password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="请确认密码"
+                android:textSize="14sp"
+                android:textColorHint="#FFFFFF"
+                android:inputType="textPassword"
+                android:background="@null"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/title_bar_center"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/snack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
