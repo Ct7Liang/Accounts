@@ -7,6 +7,7 @@ import android.develop.ct7liang.accounts.R;
 import android.develop.ct7liang.accounts.bean.Account;
 import android.develop.ct7liang.accounts.bean.BackUp;
 import android.develop.ct7liang.accounts.utils.Base64Utils;
+import android.develop.ct7liang.accounts.utils.Constant;
 import android.develop.ct7liang.accounts.utils.FileUtils;
 import android.develop.ct7liang.accounts.utils.SnackBarUtils;
 import android.develop.ct7liang.greendao.AccountDao;
@@ -23,7 +24,6 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
@@ -33,12 +33,10 @@ import com.ct7liang.tangyuan.utils.ToastUtils;
 import com.ct7liang.tangyuan.utils.loading.LoadingDialog;
 import com.ct7liang.tangyuan.utils.loading.ZddDialog;
 import com.google.gson.Gson;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.List;
-
 
 
 public class DataBackUpActivity extends BaseActivity {
@@ -79,6 +77,7 @@ public class DataBackUpActivity extends BaseActivity {
     private PatternLockView patternLockView;
     private boolean backupTag = true;
     private boolean intoTag = true;
+    private File dis;
 
     @Override
     public int setLayout() {
@@ -173,7 +172,7 @@ public class DataBackUpActivity extends BaseActivity {
     private void backup() {
         backupTag = true;
         if (AppFolder.get()==null){
-            SnackBarUtils.show(findViewById(R.id.snack), "本地数据操作权限关闭,操作无法进行");
+            SnackBarUtils.show(findViewById(R.id.snack), "读写SD卡权限关闭,操作无法进行");
             return;
         }
         if (accounts.size()==0){
@@ -195,7 +194,7 @@ public class DataBackUpActivity extends BaseActivity {
                 backUp.entryPswd = userDao.loadAll().get(0).getPassword();
                 backUp.queryPswd = queryDao.loadAll().get(0).getQueryPassword();
                 backUp.list = accounts;
-                String s = Base64Utils.StringToBase64(new Gson().toJson(backUp));
+                String s = Constant.HEADER+Base64Utils.StringToBase64(new Gson().toJson(backUp));
                 File dir = new File(AppFolder.get(), "/backups");
                 if (dir.listFiles().length>0){
                     deleteFiles(dir);
@@ -239,6 +238,21 @@ public class DataBackUpActivity extends BaseActivity {
             SnackBarUtils.show(findViewById(R.id.snack), "目标文件夹无相关数据", "#DD4E41");
             return;
         }else{
+            File[] files = dirs.listFiles();
+            dis = null;
+            for (File file : files) {
+                if (file.getPath().endsWith(".7")) {
+                    dis = file;
+                    break;
+                }
+            }
+            if (dis ==null){
+                return;
+            }
+            String replace = FileUtils.read(dis);
+            String content = replace.replace(Constant.HEADER, "");
+            String s = Base64Utils.Base64ToString(content);
+            backUp = new Gson().fromJson(s, BackUp.class);
             showCheckEntryPswd();
         }
     }
@@ -321,20 +335,6 @@ public class DataBackUpActivity extends BaseActivity {
         new Thread(){
             @Override
             public void run() {
-                File[] files = dirs.listFiles();
-                File dis = null;
-                for (File file : files) {
-                    if (file.getPath().endsWith(".7")) {
-                        dis = file;
-                        break;
-                    }
-                }
-                if (dis==null){
-                    return;
-                }
-                String content = FileUtils.read(dis);
-                String s = Base64Utils.Base64ToString(content);
-                final BackUp backUp = new Gson().fromJson(s, BackUp.class);
                 Account account;
                 for (int i = 0; i < backUp.list.size(); i++) {
                     if (!intoTag){

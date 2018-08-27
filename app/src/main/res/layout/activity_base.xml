@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="android.develop.ct7liang.accounts.BaseActivity">
+
+    <TextView
+        android:id="@+id/a"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        android:gravity="center"
+        android:text="Hello World"
+        android:textColor="#FFFFFF"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="#3c3c3c" />
+
+    <TextView
+        android:id="@+id/b"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/a"
+        app:layout_constraintVertical_bias="0.2"
+        android:gravity="center"
+        android:text="Hello World"
+        android:textColor="#FFFFFF"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="#3c3c3c" />
+
+    <TextView
+        android:id="@+id/c"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/b"
+        app:layout_constraintVertical_bias="0.4"
+        android:gravity="center"
+        android:text="Hello World"
+        android:textColor="#FFFFFF"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="#3c3c3c" />
+
+    <TextView
+        android:id="@+id/d"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/c"
+        app:layout_constraintVertical_bias="0.6"
+        android:gravity="center"
+        android:text="Hello World"
+        android:textColor="#FFFFFF"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="#3c3c3c" />
+
+    <TextView
+        android:id="@+id/e"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/d"
+        app:layout_constraintVertical_bias="0.8"
+        android:gravity="center"
+        android:text="Hello World"
+        android:textColor="#FFFFFF"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="#3c3c3c" />
 
 </android.support.constraint.ConstraintLayout>

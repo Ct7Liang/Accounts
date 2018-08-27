@@ -69,6 +69,7 @@ public class CreateQueryPwActivity extends BaseActivity {
                         BaseApp.getDaoSession().getQueryDao().insert(query);
                         SpUtils.start().saveInt(Constant.IsNewEntry, 1);
                         startActivity(new Intent(mAct, EntryActivity.class));
+                        finish();
                     }else{
                         tempPassword = null;
                         mPatternLockView.clearPattern();
