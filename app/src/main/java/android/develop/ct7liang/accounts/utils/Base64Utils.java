@@ -136,12 +136,12 @@ public class Base64Utils {
     /**
      * 加密数据规则:
      *     1.先对原数据进行Base64加密
-     *     2.如果长度为1: 在数据前加入字符串
+     *     2.如果长度为1或者为0: 在数据前加入字符串
      *     3.如果长度大于1: 将第一个字符放入最后一位, 并在最后一位之前加入字符串
      */
     public static String StringToBase64(String str){
         String s1 = string2base64(str);
-        if (s1.length() == 1){
+        if (s1.length() == 1 || s1.length() == 0){
             return SALT_BASE64_RECOVER + s1;
         }else{
             return s1.substring(1) + SALT_BASE64_RECOVER + s1.charAt(0);
@@ -159,13 +159,15 @@ public class Base64Utils {
 
     /**
      * 解密数据规则:
-     *     1.如果长度为1+字符串长度: 取最后一位,然后用Base64解密即可
+     *     1.如果长度为1+字符串长度 或者 0+字符串长度: 取最后一位,然后用Base64解密即可
      *     2.如果长度大于1+字符串长度: 将最后一位放入第一位, 再删除最后的字符串
      */
     public static String Base64ToString(String string){
         int length = string.length();
         if (length == 1+SALT_BASE64_RECOVER.length()){
             return Base64Utils.base642string(string.charAt(length-1)+"");
+        }else if (length == SALT_BASE64_RECOVER.length()){
+            return Base64Utils.base642string("");
         }else{
             String s = string.charAt(length-1) + string.substring(0, length-1);
             return Base64Utils.base642string(s.replace(SALT_BASE64_RECOVER, ""));

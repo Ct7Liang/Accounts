@@ -44,7 +44,7 @@ public class DataBackUpActivity extends BaseActivity {
     private QueryDao queryDao;
     private UserDao userDao;
     private AccountDao accountDao;
-    private BackUp backUp;
+    private BackUp backUp; //导入数据时使用,用于记录需要导入的数据内容
     private List<Account> accounts;
     private Handler handler = new Handler(){
         @Override
@@ -78,6 +78,7 @@ public class DataBackUpActivity extends BaseActivity {
     private boolean backupTag = true;
     private boolean intoTag = true;
     private File dis;
+    private boolean isYuanShuJu;
 
     @Override
     public int setLayout() {
@@ -88,7 +89,6 @@ public class DataBackUpActivity extends BaseActivity {
     protected void setStatusBar() {
         View title = findViewById(R.id.title_back_ground);
         title.setBackgroundColor(Color.parseColor("#00000000"));
-//        title.setBackgroundColor(Color.parseColor("#363A43"));
         title.setPadding(0, ScreenInfoUtil.getStatusHeight(this), 0, 0);
     }
 
@@ -124,36 +124,37 @@ public class DataBackUpActivity extends BaseActivity {
     }
 
     @Override
-    public void initView() {
-
-    }
+    public void initView() {}
 
     @Override
-    public void initFinish() {
-
-    }
+    public void initFinish() {}
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_image:
+                //返回
                 finish();
                 break;
             case R.id.start:
+                //点击开始备份
                 backup();
                 break;
             case R.id.into:
+                //点击开始导入
                 fromBackup();
                 break;
             case R.id.cancel:
+                //校验登录密码取消按钮
                 entryDialog.dismiss();
                 break;
             case R.id.confirm:
+                //校验登录密码确定按钮
                 String string = et_entry.getText().toString().trim();
                 if (TextUtils.isEmpty(string)){
                     return;
                 }
-                if (Base64Utils.StringToBase64(string).equals(userDao.loadAll().get(0).getPassword())){
+                if (Base64Utils.StringToBase64(string).equals(backUp.entryPswd)){
                     entryDialog.dismiss();
                     showCheckQueryPswd();
                 }else{
@@ -161,13 +162,16 @@ public class DataBackUpActivity extends BaseActivity {
                 }
                 break;
             case R.id.close:
+                //关闭校验查询密码窗口
                 queryDialog.dismiss();
                 break;
         }
     }
 
     /**
-     * 开始备份数据
+     * 数据备份
+     * 1.检查是否授予读写SD卡权限
+     * 2.检查是否有数据可以备份
      */
     private void backup() {
         backupTag = true;
@@ -188,38 +192,14 @@ public class DataBackUpActivity extends BaseActivity {
                         backupTag = false;
                     }
                 }, null);
-        new Thread(){
-            @Override
-            public void run() {
-                backUp.entryPswd = userDao.loadAll().get(0).getPassword();
-                backUp.queryPswd = queryDao.loadAll().get(0).getQueryPassword();
-                backUp.list = accounts;
-                String s = Constant.HEADER+Base64Utils.StringToBase64(new Gson().toJson(backUp));
-                File dir = new File(AppFolder.get(), "/backups");
-                if (dir.listFiles().length>0){
-                    deleteFiles(dir);
-                }
-                File file = new File(dir, System.currentTimeMillis()+".txt");
-                try {
-                    file.createNewFile();
-                    FileUtils.write(file.getPath(), s);
-                    file.renameTo(new File(dir, System.currentTimeMillis()+".7"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                SystemClock.sleep(500);
-                if (!backupTag){
-                    deleteFiles(dir);
-                    handler.sendEmptyMessage(2);
-                    return;
-                }
-                handler.sendEmptyMessage(0);
-            }
-        }.start();
+        new Thread(new BackUpData()){}.start();
     }
 
     /**
-     * 开始导入数据
+     * 导入数据前
+     * 1.首先判断可供导入的数据以及所在文件夹是否存在
+     * 2.校验是否是旧版本数据加密
+     * 3.将数据记录至缓存中备用
      */
     private void fromBackup() {
         if (AppFolder.get()==null){
@@ -247,16 +227,29 @@ public class DataBackUpActivity extends BaseActivity {
                 }
             }
             if (dis ==null){
+                //没有备份文件可供数据导入,直接返回
                 return;
             }
             String replace = FileUtils.read(dis);
             String content = replace.replace(Constant.HEADER, "");
-            String s = Base64Utils.Base64ToString(content);
-            backUp = new Gson().fromJson(s, BackUp.class);
+            if (content.equals(replace)){
+                //说明这是旧版本加密数据数据
+                isYuanShuJu = true;
+                //针对旧版本备份数据, 用旧版本解密方式进行解密
+                backUp = new Gson().fromJson(Base64Utils.base642string(content), BackUp.class);
+                //针对旧版本加密数据, 需要对密码进行解密和重新加密
+                backUp.entryPswd = Base64Utils.StringToBase64(Base64Utils.base642string(backUp.entryPswd));
+                backUp.queryPswd = Base64Utils.StringToBase64(Base64Utils.base642string(backUp.queryPswd));
+            }else{
+                backUp = new Gson().fromJson(Base64Utils.Base64ToString(content), BackUp.class);
+            }
             showCheckEntryPswd();
         }
     }
 
+    /**
+     * 数据导入成功后删除备份文件
+     */
     private void deleteFiles(File dir) {
         File[] files;
         while(true){
@@ -270,7 +263,7 @@ public class DataBackUpActivity extends BaseActivity {
     }
 
     /**
-     * 导入数据,登录密码校验
+     * 校验登录密码
      */
     private void showCheckEntryPswd(){
         entryDialog = new Dialog(this);
@@ -286,7 +279,7 @@ public class DataBackUpActivity extends BaseActivity {
     }
 
     /**
-     * 导入数据,查询密码校验
+     * 校验查询密码
      */
     private void showCheckQueryPswd(){
         queryDialog = new Dialog(this);
@@ -303,7 +296,7 @@ public class DataBackUpActivity extends BaseActivity {
             @Override
             public void onComplete(List<PatternLockView.Dot> pattern) {
                 String s = PatternLockUtils.patternToString(patternLockView, pattern);
-                if (Base64Utils.StringToBase64(s).equals(queryDao.loadAll().get(0).getQueryPassword())){
+                if (Base64Utils.StringToBase64(s).equals(backUp.queryPswd)){
                     queryDialog.dismiss();
                     doBackup();
                 }else{
@@ -319,7 +312,7 @@ public class DataBackUpActivity extends BaseActivity {
     }
 
     /**
-     * 导入数据
+     * 数据导入
      */
     private void doBackup() {
         intoTag = true;
@@ -332,29 +325,100 @@ public class DataBackUpActivity extends BaseActivity {
                         intoTag = false;
                     }
                 }, null);
-        new Thread(){
-            @Override
-            public void run() {
-                Account account;
-                for (int i = 0; i < backUp.list.size(); i++) {
-                    if (!intoTag){
-                        handler.sendEmptyMessage(3);
-                        return;
-                    }
-                    account = new Account();
-                    account.setTag(backUp.list.get(i).getTag());
-                    account.setAccount(backUp.list.get(i).getAccount());
-                    account.setPassword(backUp.list.get(i).getPassword());
-                    String remark = backUp.list.get(i).getRemark();
-                    if (remark!=null){
-                        account.setRemark(remark);
-                    }
-                    accountDao.insert(account);
+
+        if (isYuanShuJu){
+            new Thread(new IntoOldData()).start();
+        }else{
+            new Thread(new IntoNewData()).start();
+        }
+    }
+
+    /**
+     * 导入旧版本数据
+     */
+    private class IntoOldData implements Runnable {
+        @Override
+        public void run() {
+            Account account;
+            for (int i = 0; i < backUp.list.size(); i++) {
+                if (!intoTag){
+                    handler.sendEmptyMessage(3);
+                    return;
                 }
-                dis.delete();
-                SystemClock.sleep(500);
-                handler.sendEmptyMessage(1);
+                account = new Account();
+                account.setTag(Base64Utils.StringToBase64(Base64Utils.base642string(backUp.list.get(i).getTag())));
+                account.setAccount(Base64Utils.StringToBase64(Base64Utils.base642string(backUp.list.get(i).getAccount())));
+                account.setPassword(Base64Utils.StringToBase64(Base64Utils.base642string(backUp.list.get(i).getPassword())));
+                String remark = backUp.list.get(i).getRemark();
+                if (remark!=null){
+                    account.setRemark(Base64Utils.StringToBase64(Base64Utils.base642string(remark)));
+                }
+                accountDao.insert(account);
             }
-        }.start();
+            dis.delete();
+            SystemClock.sleep(500);
+            handler.sendEmptyMessage(1);
+        }
+    }
+
+    /**
+     * 导入新版本数据
+     */
+    private class IntoNewData implements Runnable{
+        @Override
+        public void run() {
+            Account account;
+            for (int i = 0; i < backUp.list.size(); i++) {
+                if (!intoTag){
+                    handler.sendEmptyMessage(3);
+                    return;
+                }
+                account = new Account();
+                account.setTag(backUp.list.get(i).getTag());
+                account.setAccount(backUp.list.get(i).getAccount());
+                account.setPassword(backUp.list.get(i).getPassword());
+                String remark = backUp.list.get(i).getRemark();
+                if (remark!=null){
+                    account.setRemark(remark);
+                }
+                accountDao.insert(account);
+            }
+            dis.delete();
+            SystemClock.sleep(500);
+            handler.sendEmptyMessage(1);
+        }
+    }
+
+    /**
+     * 备份数据
+     */
+    private class BackUpData implements Runnable{
+        @Override
+        public void run() {
+            BackUp backUp1 = new BackUp();
+            backUp1.entryPswd = userDao.loadAll().get(0).getPassword();
+            backUp1.queryPswd = queryDao.loadAll().get(0).getQueryPassword();
+            backUp1.list = accounts;
+            String s = Constant.HEADER+Base64Utils.StringToBase64(new Gson().toJson(backUp1));
+            File dir = new File(AppFolder.get(), "/backups");
+            if (dir.listFiles().length>0){
+                deleteFiles(dir);
+            }
+            File file = new File(dir, System.currentTimeMillis()+".txt");
+            try {
+                file.createNewFile();
+                FileUtils.write(file.getPath(), s);
+                file.renameTo(new File(dir, System.currentTimeMillis()+".7"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            SystemClock.sleep(500);
+            if (!backupTag){
+                deleteFiles(dir);
+                handler.sendEmptyMessage(2);
+                return;
+            }
+            handler.sendEmptyMessage(0);
+        }
     }
 }
