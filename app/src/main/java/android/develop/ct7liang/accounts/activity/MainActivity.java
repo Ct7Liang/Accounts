@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.ct7liang.tangyuan.utils.ScreenInfoUtil;
 import com.ct7liang.tangyuan.utils.SpUtils;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
@@ -24,6 +25,7 @@ import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package android.develop.ct7liang.accounts.activity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.develop.ct7liang.accounts.BaseApp;
 import android.develop.ct7liang.accounts.R;
 import android.develop.ct7liang.accounts.bean.User;
@@ -18,11 +19,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.ct7liang.tangyuan.AppFolder;
+import com.ct7liang.tangyuan.receiver.AppExitReceiver;
 import com.ct7liang.tangyuan.utils.GlideHelper;
 import com.ct7liang.tangyuan.utils.ScreenInfoUtil;
 import com.ct7liang.tangyuan.utils.ToastUtils;
@@ -40,6 +41,7 @@ public class EntryActivity extends TakePhotoActivity implements View.OnClickList
     private ImageView userImage;
     private ImageView image;
     private EditText password;
+    private AppExitReceiver exitReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +56,11 @@ public class EntryActivity extends TakePhotoActivity implements View.OnClickList
             title.setBackgroundColor(Color.parseColor("#00000000"));
             title.setPadding(0, ScreenInfoUtil.getStatusHeight(this), 0, 0);
         }
+
+        exitReceiver = new AppExitReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.ct7liang.tangyuan.receiver");
+        registerReceiver(exitReceiver, filter);
 
         findViewById(R.id.left_image).setOnClickListener(this);
         userImage = (ImageView) findViewById(R.id.user_icon);
@@ -165,6 +172,7 @@ public class EntryActivity extends TakePhotoActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(exitReceiver);
         File file = new File(AppFolder.get(), "/user.jpg");
         if (file.exists()){
             file.delete();
